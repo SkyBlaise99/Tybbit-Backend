@@ -45,9 +45,8 @@ def add_header(result):
 
 @app.post("/add")
 def add_score():
-    data = request.get_json()
-    name = data["name"]
-    score = data["score"]
+    name = request.args.get("name")
+    score = request.args.get("score")
 
     with connection:
         with connection.cursor() as cursor:
