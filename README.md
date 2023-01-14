@@ -13,13 +13,6 @@ Running the app:
 ## API
 
 * Add:
-  * `/add`
-    * Json Example:
-      ``` json
-      {
-        "name": "test",
-        "score": 123
-      }
-      ```
+  * `/add?name=...&score=...`
 * Get:
   * `/get`
