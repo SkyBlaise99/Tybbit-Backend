@@ -24,12 +24,12 @@ connection = psycopg2.connect(url)
 
 @app.get("/get/red")
 def get_red_scores_in_order():
-    get_scores_in_order(RED)
+    return get_scores_in_order(RED)
 
 
 @app.get("/get/blue")
 def get_blue_scores_in_order():
-    get_scores_in_order(BLUE)
+    return get_scores_in_order(BLUE)
 
 
 def get_scores_in_order(color):
@@ -61,12 +61,12 @@ def reformat_score(raw):
 
 @app.post("/add/red")
 def add_red_score():
-    add_score(RED)
+    return add_score(RED)
 
 
 @app.post("/add/blue")
 def add_score():
-    add_score(BLUE)
+    return add_score(BLUE)
 
 
 def add_score(color):
