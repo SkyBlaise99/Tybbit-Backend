@@ -2,7 +2,7 @@ import os
 import psycopg2
 
 from dotenv import load_dotenv
-from flask import Flask, request, jsonify
+from flask import Flask, request
 from flask_cors import CORS
 
 GET_SCORES_IN_ORDER = "SELECT name, score FROM users ORDER BY score;"
@@ -23,12 +23,11 @@ def get_scores_in_order():
             cursor.execute(GET_SCORES_IN_ORDER)
             results = cursor.fetchall()
 
-            scores = []
-            for result in results:
-                scores.append(reformat_score(result))
+    scores = []
+    for result in results:
+        scores.append(reformat_score(result))
 
-            # return add_header(scores)
-            return scores
+    return scores
 
 
 def reformat_score(raw):
@@ -38,12 +37,6 @@ def reformat_score(raw):
     res["score"] = raw[1]
 
     return res
-
-
-# def add_header(result):
-#     resp = jsonify(result)
-#     resp.headers["Access-Control-Allow-Origin"] = "^(https?:\/\/localhost:\d+)$|^(https?:\/\/.+\.onrender\.com)$"
-#     return resp
 
 
 @app.post("/add")
@@ -56,4 +49,4 @@ def add_score():
             cursor.execute(INSERT_SCORE, (name, score))
             id = cursor.fetchone()[0]
 
-            return "User " + str(id) + " added", 201
+    return "User " + str(id) + " added", 201
