@@ -2,9 +2,9 @@ import os
 import psycopg2
 
 from dotenv import load_dotenv
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
-GET_SCORES_IN_ORDER = "SELECT name, score FROM users ORDER BY score;"
+GET_SCORES_IN_ORDER = "SELECT * FROM users ORDER BY score;"
 INSERT_SCORE = "INSERT INTO users (name, score) VALUES (%s, %s) RETURNING id;"
 
 load_dotenv()
@@ -25,21 +25,23 @@ def get_scores_in_order():
             for result in results:
                 scores.append(reformat_score(result))
 
-            return scores
+            return add_header(scores)
 
 
 def reformat_score(raw):
     res = {}
 
-    res["name"] = raw[0]
-    res["score"] = raw[1]
+    res["id"] = raw[0]
+    res["name"] = raw[1]
+    res["score"] = raw[2]
 
     return res
 
-# def add_header(result):
-#     resp = jsonify(result)
-#     resp.headers["Access-Control-Allow-Origin"] = "http://localhost:5173"
-#     return resp
+
+def add_header(result):
+    resp = jsonify(result)
+    resp.headers["Access-Control-Allow-Origin"] = "http://localhost:3000"
+    return resp
 
 
 @app.post("/add")
