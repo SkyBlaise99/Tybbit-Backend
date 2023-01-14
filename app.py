@@ -39,7 +39,7 @@ def reformat_score(raw):
 
 def add_header(result):
     resp = jsonify(result)
-    resp.headers["Access-Control-Allow-Origin"] = "http://localhost:3000"
+    resp.headers["Access-Control-Allow-Origin"] = "^(https?:\/\/localhost:\d+)$|^(https?:\/\/.+\.onrender\.com)$"
     return resp
 
 
