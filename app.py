@@ -22,16 +22,15 @@ def get_scores_in_order():
             results = cursor.fetchall()
 
             scores = []
-            for i in range(len(results)):
-                scores.append(reformat_score(results[i], i + 1))
+            for result in results:
+                scores.append(reformat_score(result))
 
             return add_header(scores)
 
 
-def reformat_score(raw, pos):
+def reformat_score(raw):
     res = {}
 
-    res["id"] = pos
     res["name"] = raw[0]
     res["score"] = raw[1]
 
