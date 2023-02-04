@@ -65,7 +65,7 @@ def add_red_score():
 
 
 @app.post("/add/blue")
-def add_score():
+def add_blue_score():
     return add_score(BLUE)
 
 
